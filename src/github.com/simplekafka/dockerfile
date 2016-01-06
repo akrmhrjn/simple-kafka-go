@@ -1,0 +1,37 @@
+FROM golang
+MAINTAINER Ankur Maharjan <akr.mhrjn@gmail.com>
+
+ENV TERM=xterm
+
+RUN apt-get update -y && apt-get install -y \
+git \
+ca-certificates git-core ssh
+
+# Make ssh dir
+RUN mkdir /root/.ssh/
+
+# Copy over private key, and set permissions
+ADD id_rsa /root/.ssh/id_rsa
+
+RUN touch /root/.ssh/known_hosts
+
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+RUN chmod 700 /root/.ssh/id_rsa
+RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+
+RUN git config --global user.name "akrmhrjn"
+RUN git config --global user.email "akr.mhrjn@gmail.com"
+
+RUN git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+RUN git config --list
+
+RUN git clone git@github.com:akrmhrjn/simple-kafka-go.git /go/src/
+RUN cd /go/src/ && git checkout dev
+RUN cd /go/src/src/ && mv github.com/ /go/src/
+RUN rm -rf /go/src/src
+
+RUN cd /go/src/github.com/simplekafka/ && go get
+RUN cd /go/src/github.com/simplekafka/ && go install
+
+ENTRYPOINT ["/go/bin/simplekafka"]
