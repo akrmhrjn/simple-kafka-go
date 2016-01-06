@@ -8,7 +8,7 @@ import (
 
 const (
 	//file = "/Users/akrmhrjn/IdeaProjects/simple-kafka/src/github.com/simplekafka/configuration/config.yml"
-	file = "/go/src/github.com/bajratech/backendcontroller/configuration/config.yml"
+	file = "/go/src/github.com/simplekafka/configuration/config.yml"
 )
 
 var Config Conf
