@@ -1,0 +1,7 @@
+idea/
+bin/
+*.iml
+pkg/
+src/github.com/*
+!src/github.com/simplekafka/
+src/gopkg.in
