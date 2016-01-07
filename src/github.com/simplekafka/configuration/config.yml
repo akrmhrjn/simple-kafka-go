@@ -3,7 +3,3 @@ topic:
       - test
     test: test
 consumer_group: test
-brokers:
-    - 10.0.30.1:9092
-zookeeper:
-    - 10.0.30.1:2181

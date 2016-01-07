@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
-	conf "github.com/simplekafka/configuration"
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 var (
@@ -81,7 +81,8 @@ func MessageProducer(topic string, value string) error {
 		return err
 	}
 
-	producer, err := sarama.NewSyncProducer(conf.Config.Brokers, config)
+	brokers := strings.Split(os.Getenv("BROKER_IP"),",")
+	producer, err := sarama.NewSyncProducer(brokers, config)
 	if err != nil {
 		log.Println("Failed to open Kafka producer: %s", err)
 		return err

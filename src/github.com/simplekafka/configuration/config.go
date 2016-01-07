@@ -16,15 +16,11 @@ var Config Conf
 type Conf struct {
 
 	ConsumerGroup string   `yaml:"consumer_group"`
-	Zookeeper     []string `yaml:"zookeeper"`
-	Brokers       []string `yaml:"brokers"`
-
-	Topic         topic `yaml:"topic"`
+	Topic         topic    `yaml:"topic"`
 }
 
 type topic struct {
 	Test        string `yaml:"test"`
-
 	KafkaTopics []string `yaml:"kafka_topics"`
 }
 

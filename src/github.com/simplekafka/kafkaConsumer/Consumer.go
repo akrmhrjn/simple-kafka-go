@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"strings"
 	"time"
 )
 
@@ -25,7 +24,7 @@ func StartConsumer() {
 		log.Fatalf("Empty consumer group")
 	}
 
-	zookeeper := strings.Join(conf.Config.Zookeeper, ",")
+	zookeeper := os.Getenv("ZOOKEEPER_IP")
 
 	if zookeeper == "" {
 		log.Fatal("Empty zookeeper")
